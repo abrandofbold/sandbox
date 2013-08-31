@@ -21,6 +21,7 @@ public class XMLGenerator {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String filename = ".xml";
 		String overwrite = "Y";
+		int employees = 0;
 		
 		System.out.println("[[ XML Generator ]]"+pNL(1));
 		
@@ -49,6 +50,14 @@ public class XMLGenerator {
 			// add employees (a formed nodeset by function employee)
 			employee(doc,root,"1","Robert","Ritter","23","Integration Engineer");
 			employee(doc,root,"2","Tom","River","26","Solution Architect");
+			
+			System.out.print(pNL(1)+"Employees to add: ");
+			employees = Integer.parseInt(reader.readLine());
+			
+			for(int i=0;i<employees;i++){
+				System.out.print(pNL(1)+"New Employee:");
+				employeeInput(doc,root);
+			}
 	 
 			// write the content into xml file
 			Transformer xfm = TransformerFactory.newInstance().newTransformer();
@@ -87,5 +96,23 @@ public class XMLGenerator {
 		textNode(doc,employee,"Last_Name", lastname);
 		textNode(doc,employee,"Age", age);
 		textNode(doc,employee,"Title", title);
+	}
+	
+	public static void employeeInput(Document doc,Element root) throws Exception{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
+		Element employee = doc.createElement("Employee");
+		root.appendChild(employee);
+		
+		System.out.print("Employee ID: ");
+		employee.setAttribute("EID", reader.readLine());
+		System.out.print("First Name: ");
+		textNode(doc,employee,"First_Name", reader.readLine());
+		System.out.print("Last Name: ");
+		textNode(doc,employee,"Last_Name", reader.readLine());
+		System.out.print("Age: ");
+		textNode(doc,employee,"Age", reader.readLine());
+		System.out.print("Title: ");
+		textNode(doc,employee,"Title", reader.readLine());
 	}
 }
