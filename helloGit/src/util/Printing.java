@@ -1,10 +1,11 @@
 package util;
 
 public class Printing {
-	public static String pNL() {
-		
-		String newLine = System.getProperty("line.separator");
-		
+	public static String pNL(int count) {
+		String newLine = "";
+		for(int i = 0; i < count; i++){
+		newLine += System.getProperty("line.separator");
+		}
 		return newLine;
 	}
 	
