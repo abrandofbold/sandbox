@@ -43,35 +43,12 @@ public class XMLGenerator {
 	 
 			// root elements
 			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-			Element rootElement = doc.createElement("company");
-			doc.appendChild(rootElement);
+			Element root = doc.createElement("Company");
+			doc.appendChild(root);
 	 
-			// staff elements
-			Element staff = doc.createElement("Staff");
-			rootElement.appendChild(staff);
-	 
-			// set attribute to staff element
-			staff.setAttribute("id", "1");
-	 
-			// firstname elements
-			Element firstname = doc.createElement("firstname");
-			firstname.appendChild(doc.createTextNode("yong"));
-			staff.appendChild(firstname);
-	 
-			// lastname elements
-			Element lastname = doc.createElement("lastname");
-			lastname.appendChild(doc.createTextNode("mook kim"));
-			staff.appendChild(lastname);
-	 
-			// nickname elements
-			Element nickname = doc.createElement("nickname");
-			nickname.appendChild(doc.createTextNode("mkyong"));
-			staff.appendChild(nickname);
-	 
-			// salary elements
-			Element salary = doc.createElement("salary");
-			salary.appendChild(doc.createTextNode("100000"));
-			staff.appendChild(salary);
+			// add employees (a formed nodeset by function employee)
+			employee(doc,root,"1","Robert","Ritter","23","Integration Engineer");
+			employee(doc,root,"2","Tom","River","26","Solution Architect");
 	 
 			// write the content into xml file
 			Transformer xfm = TransformerFactory.newInstance().newTransformer();
@@ -93,5 +70,22 @@ public class XMLGenerator {
 		}
 			
 		System.out.print(pNL(1)+"[[ / XML Generator ]]");
+	}
+	
+	public static void textNode(Document doc,Element node,String name,String value){
+		Element element = doc.createElement(name);
+		element.appendChild(doc.createTextNode(value));
+		node.appendChild(element);
+	}
+	
+	public static void employee(Document doc,Element root,String eid,String firstname,String lastname,String age,String title){
+		Element employee = doc.createElement("Employee");
+		root.appendChild(employee);
+		
+		employee.setAttribute("EID", eid);
+		textNode(doc,employee,"First_Name", firstname);
+		textNode(doc,employee,"Last_Name", lastname);
+		textNode(doc,employee,"Age", age);
+		textNode(doc,employee,"Title", title);
 	}
 }
