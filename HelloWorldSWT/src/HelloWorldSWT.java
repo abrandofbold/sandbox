@@ -34,15 +34,17 @@ public class HelloWorldSWT {
 		
 		Listener listener = new Listener() {
 			public void handleEvent (Event event) {
+				int vPadding = 15;
+				
 				switch (event.type) {
 				case SWT.Paint:
-					layout.draw(event.gc, 10, 10);
-					layout2.draw(event.gc, 10, layout.getLineCount()*15+25);
+					layout.draw(event.gc, vPadding, vPadding);
+					layout2.draw(event.gc, vPadding, (layout.getLineCount())*15+vPadding*2);
 					break;
 				case SWT.Resize:
-					layout.setWidth(shell.getSize().x - 30);
-					layout2.setWidth(shell.getSize().x - 30);
-					shell.setMinimumSize(0,(layout.getLineCount()+layout2.getLineCount())*15+70);
+					layout.setWidth(shell.getSize().x - (15+vPadding*2));
+					layout2.setWidth(shell.getSize().x - (15+vPadding*2));
+					shell.setMinimumSize(0,(layout.getLineCount()+layout2.getLineCount())*15+40+vPadding*3);
 					break;
 				}
 			}
