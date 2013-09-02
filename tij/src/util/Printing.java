@@ -1,5 +1,7 @@
 package util;
 
+import java.io.PrintStream;
+
 public class Printing {
 	public static String pNL(int count) {
 		String newLine = "";
@@ -35,4 +37,22 @@ public class Printing {
 	public static String pBrackets(String input){
 		return "[" + input + "]";
 	}
+	
+	public static void p(Object obj) {
+	    System.out.println(obj);
+	}
+
+	public static void p() {
+		System.out.println();
+	}
+
+	public static void pnb(Object obj) {
+		System.out.print(obj);
+	}
+	
+	public static PrintStream
+		printf(String format, Object... args) {
+	    return System.out.printf(format, args);
+	}
+	
 }
