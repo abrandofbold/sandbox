@@ -1,12 +1,18 @@
+import static util.Printing.*;
+import static util.Calculating.*;
+import static java.lang.Math.*;
+
 
 
 public class LevelUp {
 
 	public static void main(String[] args) {
-		Player mike = new Player("Mike",11,4,11,27);
-		Player tony = new Player("Tony",8,9,7,14);
+		Player mike = new Player("Mike",35,4,49,27);
+		Player tony = new Player("Tony",14,9,37,40);
 		
-		Printing.p(battle(mike,tony).name+" Wins!");
+		p(compare(mike,tony).name+" estimated to win.");
+		
+		p(battle(mike,tony).name+" Wins!");
 
 	}
 	
@@ -18,25 +24,44 @@ public class LevelUp {
 		int time = 1;
 		
 		while(a2.hp > 0 && b2.hp > 0){
-			Printing.pnb(time+": ");
+			pnb(time+":");
 			
-			if(time % a2.spd == 0){
-				b2.uHP(b2.hp - (a2.atk - b2.def));
-				Printing.pnb(a2.name+" Attacks! "+b2.name+"'s health is now "+b2.hp);
+			if(time % (99-a2.spd) == 0){
+				b2.uHP(b2.hp - (max(r(a2.atk) - r(b2.def),0)));
+				pnb(" "+a2.name+" Attacks! "+b2.name+"'s health is now "+b2.hp);
 			}
-			if(time % b2.spd == 0){
-				a2.uHP(a2.hp - (b2.atk - a2.def));
-				Printing.pnb(b2.name+" Attacks! "+a2.name+"'s health is now "+a2.hp);
+			if(time % (99-b2.spd) == 0){
+				a2.uHP(a2.hp - (max(r(b2.atk) - r(a2.def),0)));
+				pnb(" "+b2.name+" Attacks! "+a2.name+"'s health is now "+a2.hp);
 			}
 			
 			time++;
-			Printing.p();
+			p();
 		}
 		
 		if(a2.hp > b2.hp){
 			winner = a2;
 		}else{
 			winner = b2;
+		}
+		
+		return winner;
+	}
+
+	public static Player compare(Player a,Player b){
+		Player winner = null;
+		double scale;	
+		
+		scale = (((a.atk - b.def) / (double)b.hp) * a.spd) / (((b.atk - a.def) / (double)a.hp) * b.spd);
+		
+		p(scale);
+		
+		if(scale < 0){
+			winner = a;
+		}else if(scale > 0){
+			winner = b;
+		}else{
+			
 		}
 		
 		return winner;
