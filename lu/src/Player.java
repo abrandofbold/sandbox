@@ -14,8 +14,20 @@ public class Player {
 		this.hp = (h > 0 ? h : 0);
 	}
 	
+	public Player(Player p){
+		this.name = p.name;
+		this.atk = p.atk;
+		this.def = p.def;
+		this.spd = p.spd;
+		this.hp = p.hp;
+	}
+	
 	public void uHP(int h){
 		this.hp = (h > 0 ? h : 0);
+	}
+	
+	public String toString(){
+		return name+" [ATK:"+atk+" DEF:"+def+" SPD:"+spd+" HP:"+hp+"]";
 	}
 
 }

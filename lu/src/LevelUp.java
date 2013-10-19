@@ -7,8 +7,11 @@ import static java.lang.Math.*;
 public class LevelUp {
 
 	public static void main(String[] args) {
-		Player mike = new Player("Mike",14,10,23,14);
+		Player mike = new Player("Mike",14,10,37,14);
 		Player tony = new Player("Tony",17,11,20,40);
+		
+		p(mike);
+		p(tony);
 		
 		p(compare(mike,tony).name+" estimated to win.");
 		
@@ -17,28 +20,28 @@ public class LevelUp {
 	}
 	
 	public static Player battle(Player a,Player b){
-		Player a2 = new Player(a.name,a.atk,a.def,a.spd,a.hp);
-		Player b2 = new Player(b.name,b.atk,b.def,b.spd,b.hp);
+		Player a_tmp = new Player(a);
+		Player b_tmp = new Player(b);
 		
 		int time = 1;
 		
-		while(a2.hp > 0 && b2.hp > 0){
+		while(a_tmp.hp > 0 && b_tmp.hp > 0){
 			pnb(time+":");
 			
-			if(time % (99-a2.spd) == 0){
-				b2.uHP(b2.hp - (max(r(a2.atk) - r(b2.def),0)));
-				pnb(" "+a2.name+" Attacks! "+b2.name+"'s health is now "+b2.hp);
+			if(time % (99-a_tmp.spd) == 0){
+				b_tmp.uHP(b_tmp.hp - (max(r(a_tmp.atk) - r(b_tmp.def),0)));
+				pnb(" "+a_tmp.name+" Attacks! "+b_tmp.name+"'s health is now "+b_tmp.hp);
 			}
-			if(time % (99-b2.spd) == 0){
-				a2.uHP(a2.hp - (max(r(b2.atk) - r(a2.def),0)));
-				pnb(" "+b2.name+" Attacks! "+a2.name+"'s health is now "+a2.hp);
+			if(time % (99-b_tmp.spd) == 0){
+				a_tmp.uHP(a_tmp.hp - (max(r(b_tmp.atk) - r(a_tmp.def),0)));
+				pnb(" "+b_tmp.name+" Attacks! "+a_tmp.name+"'s health is now "+a_tmp.hp);
 			}
 			
 			time++;
 			p();
 		}
 		
-		return (a2.hp > b2.hp || (a2.hp == b2.hp && a2.spd > b2.spd)) ? a2 : b2;
+		return (a_tmp.hp > b_tmp.hp || (a_tmp.hp == b_tmp.hp && a_tmp.spd > b_tmp.spd)) ? a_tmp : b_tmp;
 	}
 
 	public static Player compare(Player a,Player b){
